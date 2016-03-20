@@ -18,6 +18,7 @@ describe FiguresController do
 
   it "allows you to view form to create a new figure" do
     visit '/figures/new'
+
     expect(page.body).to include('<form')
     expect(page.body).to include('figure[name]')
     expect(page.body).to include('figure[title_ids][]')
@@ -32,6 +33,7 @@ describe FiguresController do
     check "title_#{Title.first.id}"
     click_button "Create New Figure"
     figure = Figure.last
+    
     expect(Figure.all.count).to eq(3)
     expect(figure.name).to eq("Doctor Who")
     expect(figure.titles).to include(Title.first)
@@ -43,6 +45,7 @@ describe FiguresController do
     check "landmark_#{Landmark.first.id}"
     click_button "Create New Figure"
     figure = Figure.last
+
     expect(Figure.all.count).to eq(3)
     expect(figure.name).to eq("Doctor Who")
     expect(figure.landmarks).to include(Landmark.first)
@@ -55,6 +58,7 @@ describe FiguresController do
     click_button "Create New Figure"
     figure = Figure.last
     title = Title.last
+
     expect(Figure.all.count).to eq(3)
     expect(Title.all.count).to eq(2)
     expect(figure.name).to eq("Doctor Who")
@@ -68,6 +72,7 @@ describe FiguresController do
     click_button "Create New Figure"
     figure = Figure.last
     landmark = Landmark.last
+
     expect(Figure.all.count).to eq(3)
     expect(Landmark.all.count).to eq(2)
     expect(figure.name).to eq("Doctor Who")
@@ -78,7 +83,6 @@ describe FiguresController do
     visit '/figures'
     
     expect(page.status_code).to eq(200)
-
     expect(page.body).to include("Beyonce")
     expect(page.body).to include('Kanye')
   end
@@ -86,6 +90,7 @@ describe FiguresController do
   it "allows you to see a single Figure" do
     @figure = Figure.first
     get "/figures/#{@figure.id}"
+
     expect(last_response.status).to eq(200)
     expect(last_response.body).to include("#{@figure.name}")
   end
@@ -109,11 +114,10 @@ describe FiguresController do
     fill_in :new_landmark, with: "Big Tower"
     click_button "Edit Figure"
     @figure = Figure.first
+    
     expect(page.current_path).to eq("/figures/#{@figure.id}")
     expect(page.body).to include(@figure.name)    
-
     expect(page.body).to include("Big Tower")
     expect(@figure.name).to eq("Missy")
-
   end
 end

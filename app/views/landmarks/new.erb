@@ -7,11 +7,5 @@
   <label for="landmark_year_completed">Year Completed:</label>
   <input type="text" name="landmark[year_completed]" id="landmark_year_completed">
   <br>
-  <% Figure.all.each do |figure| %>
-    <input type="checkbox" name="landmark[figure_id]" value="<%= figure.id %>" id="<% figure.id %>">
-      <%= figure.name %>
-    </input>
-  <% end %>
-  <br>
   <input type="submit" value="Create New Landmark">
 </form>
